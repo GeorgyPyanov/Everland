@@ -1,7 +1,7 @@
 import os
 import sys
-
-import pygame as pygame
+import random
+import pygame
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
@@ -35,3 +35,24 @@ def load_image(name, colorkey=None):
         sys.exit()
     image = pygame.image.load(fullname)
     return image
+
+
+class Particle(pygame.sprite.Sprite):
+    def __init__(self, pos, dx, dy, all_sprites, GRAVITY, screen_rect, image_name):
+        super().__init__(all_sprites)
+        fire = [[load_image(i) for i in image_name]]
+        for scale in (5, 10, 20):
+            fire.append(pygame.transform.scale(random.choice(fire[0]), (scale, scale)))
+        self.screen_rect = screen_rect
+        self.image = random.choice(fire[1:])
+        self.rect = self.image.get_rect()
+        self.velocity = [dx, dy]
+        self.rect.x, self.rect.y = pos
+        self.gravity = GRAVITY
+
+    def update(self):
+        self.velocity[1] += self.gravity
+        self.rect.x += self.velocity[0]
+        self.rect.y += self.velocity[1]
+        if not self.rect.colliderect(self.screen_rect):
+            self.kill()
