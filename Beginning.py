@@ -14,12 +14,12 @@ class Mountain(pygame.sprite.Sprite):
         self.rect.bottom = height
 
 
-def create_particles(position):
+def create_particles(position, list_pictures):
     particle_count = 20
     numbers = range(-5, 6)
     for _ in range(particle_count):
         Particle(position, random.choice(numbers), random.choice(numbers), all_sprites, 0.5, screen_rect,
-                 ["snowflakes_1.png", 'snowflakes_3.png', 'snowflakes_2.png'])
+                 list_pictures)
 
 
 pygame.init()
@@ -67,7 +67,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            create_particles(pygame.mouse.get_pos())
+            create_particles(pygame.mouse.get_pos(), ['snowflakes_1.png', 'snowflakes_2.png', 'snowflakes_3.png'])
     screen.fill((0, 0, 0))
     for i in range(len(snow_list)):
         pygame.draw.circle(screen, [255, 255, 255], snow_list[i], 2)
