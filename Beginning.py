@@ -50,14 +50,14 @@ all_sprites.add(sprite)
 font = pygame.font.Font('data/shrift.ttf', 15)
 text = font.render("Вы чувствуете,как наполняетесь снежным настроением", True, (0, 0, 255))
 text_x = width // 2 - text.get_width() // 2
-text_y = height // 2 - text.get_height() // 2 + 70
+text_y = height // 2 - text.get_height() // 2 + 30
 text_w = text.get_width()
 text_h = text.get_height()
 screen.blit(text, (text_x, text_y))
 text1 = font.render("Чтобы начать,"
                     "просто нажмите волшебную левую кнопку мыши", True, (0, 0, 255))
 text_x1 = width // 2 - text.get_width() // 2 - 20
-text_y1 = height // 2 - text.get_height() // 2 + 90
+text_y1 = height // 2 - text.get_height() // 2 + 50
 text_w1 = text.get_width()
 text_h1 = text.get_height()
 screen.blit(text1, (text_x1, text_y1))

@@ -46,8 +46,8 @@ class Particle(pygame.sprite.Sprite):
     def __init__(self, pos, dx, dy, all_sprites, GRAVITY, screen_rect, image_name):
         super().__init__(all_sprites)
         fire = [[load_image(i) for i in image_name]]
-        for scale in (5, 10, 20):
-            fire.append(pygame.transform.scale(random.choice(fire[0]), (scale, scale)))
+        for scale in (20, 25, 30):
+            fire.append(pygame.transform.scale(random.choice(fire[0]), (scale + 15, scale)))
         self.screen_rect = screen_rect
         self.image = random.choice(fire[1:])
         self.rect = self.image.get_rect()
@@ -86,3 +86,19 @@ class Sprite_Mouse_Location(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.rect = pygame.Rect(0, 0, 1, 1)
+
+
+class Mouse(pygame.sprite.Sprite):
+    image = load_image("kristall.png")
+
+    def __init__(self, group):
+        super().__init__(group)
+        self.image = Mouse.image
+        self.rect = self.image.get_rect()
+        self.rect.x = 100
+        self.rect.y = 100
+
+    def update(self, x, y):
+        if pygame.mouse.get_focused():
+            self.rect.x = x - 10
+            self.rect.y = y - 10
