@@ -2,7 +2,6 @@ from random import random, randint, choice
 import pygame
 from Tools import load_image, Particle, Particle_2, Sprite_Mouse_Location, AnimatedSprite, Mouse, Background
 
-
 pygame.init()
 pygame.display.set_caption('Карта')
 size = width, height = 700, 600
@@ -41,24 +40,24 @@ four = pygame.sprite.Sprite()
 fon = pygame.sprite.Sprite()
 sprite_island.image = load_image("island.png")
 sprite_island.rect = sprite_island.image.get_rect()
-sprite_island.rect.x = 50
+sprite_island.rect.x = 20
 sprite_island.rect.y = 130
 all_sprites.add(sprite_island)
 one.image = load_image("one.png")
 one.rect = one.image.get_rect()
-one.rect.x = 550
+one.rect.x = 520
 one.rect.y = 150
 two.image = load_image("two.png")
 two.rect = two.image.get_rect()
-two.rect.x = 350
+two.rect.x = 320
 two.rect.y = 180
 three.image = load_image("three.png")
 three.rect = three.image.get_rect()
-three.rect.x = 450
+three.rect.x = 420
 three.rect.y = 250
 four.image = load_image("four.png")
 four.rect = four.image.get_rect()
-four.rect.x = 150
+four.rect.x = 120
 four.rect.y = 200
 if level[0] == '1':
     one.image = load_image("one_1.png")
@@ -80,25 +79,22 @@ if level[3] == '1':
     grop_2.append(four)
 else:
     grop.append(four)
-fon.image = load_image("fon.png")
-fon.rect = fon.image.get_rect()
-fon.rect.x = 150
-fon.rect.y = 0
-all_sprites.add(fon)
 mouse_sprite = Sprite_Mouse_Location()
 pygame.mixer.music.load("sounds/map.mp3")
 pygame.mixer.music.play(-1)
 list_pictures = ['snowflakes_1.png', 'snowflakes_2.png', 'snowflakes_3.png']
-effect = AnimatedSprite(load_image("magic_2.png"), 5, 5, 192, 192, all_sprites, 2)
-effect.rect.x = 300
+effect = AnimatedSprite(load_image("magic_2.png"), 4, 2, 170.75, 174, all_sprites, 10)
+effect.rect.x = 270
 effect.rect.y = 350
-effect2 = AnimatedSprite(load_image("fire_effect_20.png"), 9, 1, 192, 156, all_sprites, 2)
-effect2.rect.x = 300
-effect2.rect.y = 250
+effect2 = AnimatedSprite(load_image("fire_effect_20.png"), 4, 2, 170.75, 174, all_sprites, 2)
+effect2.rect.x = 270
+effect2.rect.y = 350
 all_sprites.remove(effect2)
 pygame.mouse.set_visible(False)
 mouse = Mouse(mouse_but)
 le = 1
+for i in grop_2:
+    numbers_sprite_2.add(i)
 
 
 def create_particles(position, list_pictures_0):
@@ -139,11 +135,6 @@ while running:
                     numbers_sprite.add(i)
                 for i in grop_2:
                     numbers_sprite_2.remove(i)
-            elif pygame.sprite.collide_rect(effect, mouse_sprite):
-                colors = [(255, 0, 0), (255, 69, 0)]
-            elif pygame.sprite.collide_rect(effect2, mouse_sprite):
-                colors = [(255, 69, 0), (255, 0, 0), (255, 255, 0),
-                          (0, 255, 0), (0, 255, 255), (0, 0, 128), (75, 0, 130)]
             else:
                 BackGround = Background('data/fon_map.jpg', [0, 0])
                 all_sprites.remove(effect2)
@@ -156,6 +147,11 @@ while running:
                     numbers_sprite.remove(i)
                 for i in grop_2:
                     numbers_sprite_2.add(i)
+    if pygame.sprite.collide_rect(effect, mouse_sprite):
+        colors = [(255, 0, 0), (255, 79, 0), (204, 85, 0), (255, 36, 0), (255, 127, 73)]
+    elif pygame.sprite.collide_rect(effect2, mouse_sprite):
+        colors = [(255, 69, 0), (255, 0, 0), (255, 255, 0),
+                  (0, 255, 0), (0, 255, 255), (0, 0, 128), (75, 0, 130)]
     mouse_sprite.rect.x = pos[0]
     mouse_sprite.rect.y = pos[1]
     for x in range(randint(15, 25)):

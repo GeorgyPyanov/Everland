@@ -32,13 +32,14 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.n = 0
 
 
-def load_image(name, colorkey=None):
+def load_image(name, colorkey=None, alpha=255):
     fullname = os.path.join('data', name)
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
         sys.exit()
     image = pygame.image.load(fullname)
+    image.set_alpha(alpha)
     return image
 
 
@@ -99,6 +100,16 @@ class Piano(pygame.sprite.Sprite):
 
     def update(self):
         pygame.mixer.Sound(self.nota).play()
+        self.image = load_image("klavisha_on.png")
+
+    def update_on(self):
+        self.image = load_image("klavisha.png")
+
+    def update_an(self):
+        self.image = load_image("klavisha_on.png")
+
+    def update_0(self):
+        self.image = load_image("klavisha_an.png")
 
 
 class Mouse(pygame.sprite.Sprite):
