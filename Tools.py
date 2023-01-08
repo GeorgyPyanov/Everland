@@ -88,6 +88,19 @@ class Sprite_Mouse_Location(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, 1, 1)
 
 
+class Piano(pygame.sprite.Sprite):
+    def __init__(self, x, y, nota):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = load_image("klavisha.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.nota = nota
+
+    def update(self):
+        pygame.mixer.Sound(self.nota).play()
+
+
 class Mouse(pygame.sprite.Sprite):
     image = load_image("kristall.png")
 
@@ -102,3 +115,17 @@ class Mouse(pygame.sprite.Sprite):
         if pygame.mouse.get_focused():
             self.rect.x = x - 10
             self.rect.y = y - 10
+
+
+class Background(pygame.sprite.Sprite):
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(image_file)
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
+
+    def update(self, n, x, y):
+        self.image = pygame.transform.scale(self.image,
+                                            (n + self.image.get_rect()[2], n + self.image.get_rect()[3]))
+        self.rect.x += x
+        self.rect.y += y
