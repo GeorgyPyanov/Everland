@@ -32,14 +32,14 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.n = 0
 
 
-def load_image(name, colorkey=None, alpha=255):
+def load_image(name, colorkey=None, alpha=255, t=0):
     fullname = os.path.join('data', name)
-    # если файл не существует, то выходим
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
         sys.exit()
     image = pygame.image.load(fullname)
     image.set_alpha(alpha)
+    image = pygame.transform.rotate(image, t)
     return image
 
 

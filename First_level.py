@@ -52,6 +52,8 @@ text_y1 = 10
 text_w1 = text1.get_width()
 text_h1 = text1.get_height()
 screen.blit(text1, (text_x1, text_y1))
+na = True
+particles1 = []
 
 
 def create_particles(position, list_pictures_0):
@@ -67,6 +69,13 @@ def DrawPictures():
         i.render(screen)
         if i.radius <= 0:
             particles.remove(i)
+
+
+def DrawPictures1():
+    for i in particles1:
+        i.render(screen)
+        if i.radius <= 0:
+            particles1.remove(i)
 
 
 while True:
@@ -86,23 +95,29 @@ while True:
             else:
                 BackGround = Background('data/bashnya.jpg', [0, 0])
                 text1 = font.render(f'Поздравляю, герой!', True, (0, 0, 0))
-                colors = [(220, 20, 60), (139, 0, 139)]
+                colors = [(222, 184, 135), (255, 248, 220)]
                 pygame.mixer.music.load("sounds/bashnya_on.mp3")
                 pygame.mixer.music.play(-1)
+                na = False
         if event.type == pygame.MOUSEMOTION:
             mouse_but.update(pos[0], pos[1])
         if event.type == pygame.MOUSEBUTTONDOWN:
             create_particles(pygame.mouse.get_pos(), list_pictures)
     mouse_sprite.rect.x = pos[0]
     mouse_sprite.rect.y = pos[1]
-    screen.blit(text, (text_x, text_y))
     for x in range(randint(15, 25)):
         particle = Particle_2(pos[0], pos[1], randint(0, 20) / 10,
                               randint(-3, -1), randint(2, 5), choice(colors))
         particles.append(particle)
+        if not na:
+            for i in range(20):
+                particle = Particle_2(randint(0, 1000), randint(0, 500), randint(0, 20) / 10,
+                                      randint(-3, -1), randint(2, 5), choice(colors))
+            particles1.append(particle)
     screen.blit(pygameZoom.generate_surface(), (0, 0))
     pygameZoom.blit(BackGround.image, BackGround.rect)
-    pygameZoom.blit(text, (text_x, text_y))
+    if na:
+        pygameZoom.blit(text, (text_x, text_y))
     pygameZoom.blit(text1, (text_x1, text_y1))
     pygameZoom.render(screen, (0, 0))
     all_sprites.update()
@@ -111,5 +126,7 @@ while True:
     if pygame.mouse.get_focused():
         mouse_but.draw(screen)
         DrawPictures()
+    if not na:
+        DrawPictures1()
     pygame.display.update()
     clock.tick(30)

@@ -47,7 +47,7 @@ all_sprites.add(sprite)
 for i in range(3):
     sprite1 = pygame.sprite.Sprite()
     sprite1.image = load_image("snowflakes_4.png")
-    sprite1.rect = sprite.image.get_rect()
+    sprite1.rect = sprite1.image.get_rect()
     sprite1.rect.x = 800 + i * 58
     sprite1.rect.y = 10
     lives.add(sprite1)
@@ -91,6 +91,17 @@ def Draw_person():
             particles1.remove(i)
 
 
+def optimization(k0):
+    n = 0
+    k = k0
+    for i in piano:
+        if n == k:
+            i.update()
+        else:
+            i.update_on()
+        n += 1
+
+
 while True:
     we = False
     screen.fill((225, 225, 225))
@@ -116,85 +127,29 @@ while True:
                     n += 1
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_z and h == 0:
+                optimization(0)
                 we = True
-                n = 0
-                k = 0
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_x and h == 0:
+                optimization(1)
                 we = True
-                n = 0
-                k = 1
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_c and h == 0:
+                optimization(2)
                 we = True
-                n = 0
-                k = 2
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_v and h == 0:
+                optimization(3)
                 we = True
-                n = 0
-                k = 3
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_b and h == 0:
+                optimization(4)
                 we = True
-                n = 0
-                k = 4
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_n and h == 0:
+                optimization(5)
                 we = True
-                n = 0
-                k = 5
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_m and h == 0:
+                optimization(6)
                 we = True
-                n = 0
-                k = 6
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_l and h == 0:
+                optimization(7)
                 we = True
-                n = 0
-                k = 7
-                for i in piano:
-                    if n == k:
-                        i.update()
-                    else:
-                        i.update_on()
-                    n += 1
             if event.key == pygame.K_LEFT and h == 0:
                 we = False
                 if k > 0:
@@ -262,6 +217,7 @@ while True:
                 break
             pygame.mixer.music.load('sounds/bura_2.mp3')
             pygame.mixer.music.play(-1)
+            progress = 0
     if 0 < h <= yt:
         h += 1
     elif h == yt + 1:
