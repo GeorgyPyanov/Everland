@@ -1,6 +1,9 @@
 import random
+import sys
+
 import pygame
 from Tools import Particle, load_image
+import Map as Map
 
 
 class Mountain(pygame.sprite.Sprite):
@@ -55,7 +58,7 @@ text_w = text.get_width()
 text_h = text.get_height()
 screen.blit(text, (text_x, text_y))
 text1 = font.render("Чтобы начать,"
-                    "просто нажмите волшебную левую кнопку мыши", True, (0, 0, 255))
+                    "просто нажмите волшебную кнопку мыши", True, (0, 0, 255))
 text_x1 = width // 2 - text.get_width() // 2 - 20
 text_y1 = height // 2 - text.get_height() // 2 + 50
 text_w1 = text.get_width()
@@ -68,6 +71,9 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             create_particles(pygame.mouse.get_pos(), ['snowflakes_1.png', 'snowflakes_2.png', 'snowflakes_3.png'])
+            pygame.quit()
+            Map.main()
+            sys.exit()
     screen.fill((0, 0, 0))
     for i in range(len(snow_list)):
         pygame.draw.circle(screen, [255, 255, 255], snow_list[i], 2)

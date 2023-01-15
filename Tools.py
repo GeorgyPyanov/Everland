@@ -140,3 +140,17 @@ class Background(pygame.sprite.Sprite):
                                             (n + self.image.get_rect()[2], n + self.image.get_rect()[3]))
         self.rect.x += x
         self.rect.y += y
+
+
+class Atom(pygame.sprite.Sprite):
+
+    def __init__(self, pos, element, rt=15):
+        FONT = pygame.font.Font('data/shrift_2.ttf', rt)
+        FONT_COLOR = pygame.Color('black')
+        ATOM_IMG = pygame.Surface((400, 100), pygame.SRCALPHA)
+        pygame.sprite.Sprite.__init__(self)
+        self.image = ATOM_IMG.copy()
+        textsurface = FONT.render(element, True, FONT_COLOR)
+        textrect = textsurface.get_rect(center=self.image.get_rect().center)
+        self.image.blit(textsurface, textrect)
+        self.rect = self.image.get_rect(center=pos)
